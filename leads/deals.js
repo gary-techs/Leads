@@ -4,21 +4,9 @@ const { Text, Select } = require('@keystonejs/fields');
 const { LocalFileAdapter } = require('@keystonejs/file-adapters');
 const fileAdapter = new LocalFileAdapter({
     /*...config */
-  });
+});
 
-/*
-Seller Info		Buyer Info		Deal Information						Commision Information			
-Seller Name	Seller Contact	Buyer Name	Buyer Contact	Deal Date	Project Name	Type	Booking Amount	Total Amount	Builder Final Payout Date (Tentative)	Commision Percent	Commision Amount	Commision Status	Commision Status
- Phone: {
-      type: Text,
-      isRequired: true,
-      isUnique:true
-    },
-    Comments: {
-      type: Wysiwyg,
-      isRequired: false,
-    },
-*/
+
 module.exports = {
     fields: {
         "Seller Name": {
@@ -46,29 +34,39 @@ module.exports = {
             type: Text,
             isRequired: false,
         },
+
         "Project Name": {
             type: Text,
             isRequired: true,
         },
-        "Deal Date": {
+        "Unit Detail": {
             type: Text,
             isRequired: true,
         },
-        "Deal Date": {
+        "Deal Start Date": {
             type: Text,
-            isRequired: false,
+            isRequired: true,
+        },
+        "Deal Close Date": {
+            type: Text,
+            isRequired: true,
         },
         "Deal Type": {
+            type: Select,
+            options: 'Affordable, Commercial, Residential, Land',
+            isRequired: true,
+        },
+        "Deal Total Amount": {
             type: Text,
             isRequired: true,
         },
-        "Deal Amount": {
+        "Deal Total Profit": {
             type: Text,
             isRequired: true,
         },
-        "Buyer Additional Info": {
+        "Deal Net Profit": {
             type: Text,
-            isRequired: false,
+            isRequired: true,
         },
         "Commision Amount": {
             type: Text,
@@ -79,6 +77,10 @@ module.exports = {
             options: 'Pending, Partially Paid, Fully Paid',
             isRequired: true,
         },
+        "Commision Paid Date": {
+            type: Text,
+            isRequired: false,
+        },
         "Sales Person": {
             type: Text,
             isRequired: true,
@@ -87,14 +89,29 @@ module.exports = {
             type: Text,
             isRequired: true,
         },
-        "Deal Profit": {
+        Comments: {
             type: Text,
             isRequired: true,
         },
-        attachments: {
+        attachments1: {
             type: File,
             adapter: fileAdapter,
-            isRequired: true,
-          },
+            isRequired: false,
+        },
+        attachments2: {
+            type: File,
+            adapter: fileAdapter,
+            isRequired: false,
+        },
+        attachments3: {
+            type: File,
+            adapter: fileAdapter,
+            isRequired: false,
+        },
+        attachments4: {
+            type: File,
+            adapter: fileAdapter,
+            isRequired: false,
+        },
     }
 };

@@ -7,6 +7,7 @@ const { Text, Checkbox, Password } = require('@keystonejs/fields');
 const { GraphQLApp } = require('@keystonejs/app-graphql');
 const { AdminUIApp } = require('@keystonejs/app-admin-ui');
 const LeadsSchema = require('./leads/leads.js');
+const DealsSchema = require('./leads/deals.js');
 const initialiseData = require('./initial-data');
 const { MongooseAdapter: Adapter } = require('@keystonejs/adapter-mongoose');
 
@@ -36,6 +37,7 @@ const userOwnsItem = ({ authentication: { item: user } }) => {
 };
 
 keystone.createList('Lead', LeadsSchema);
+keystone.createList('Deals', DealsSchema);
 
 
 const userIsAdminOrOwner = auth => {
