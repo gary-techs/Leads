@@ -36,6 +36,8 @@ const userOwnsItem = ({ authentication: { item: user } }) => {
 };
 
 keystone.createList('Lead', LeadsSchema);
+
+
 const userIsAdminOrOwner = auth => {
   const isAdmin = access.userIsAdmin(auth);
   const isOwner = access.userOwnsItem(auth);

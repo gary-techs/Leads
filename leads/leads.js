@@ -1,5 +1,6 @@
 
-const { Text, Checkbox ,Select,Integer} = require('@keystonejs/fields');
+const { Text, Select } = require('@keystonejs/fields');
+
 const { Wysiwyg } = require('@keystonejs/fields-wysiwyg-tinymce');
 
 module.exports = {
@@ -8,27 +9,47 @@ module.exports = {
       type: Text,
       isRequired: true,
     },
+    Phone: {
+      type: Text,
+      isRequired: true,
+      isUnique: true
+    },
+    Comments: {
+      type: Wysiwyg,
+      isRequired: false,
+    },
+    type: {
+      type: Select,
+      _label_: 'Test',
+      options: 'New, Oppurtunity',
+      isRequired: true,
+    },
+
     Address: {
       type: Text,
       isRequired: false,
     },
-    Phone: {
-      type: Integer,
-      isRequired: true,
+    City: {
+      type: Select,
+      options: 'Gurgaon,Faridabad,Noida,Delhi,Ghaziabad,Rewari',
+      isRequired: false,
     },
-    PropertyDetails: {
-      type: Wysiwyg,
-      isRequired: true,
+    Source: {
+      type: Text,
+      isRequired: false,
     },
     Email: {
       type: Text,
       isRequired: false,
     },
-      type: { 
-        type: Select,
-         options: 'New,Oppurtunity,Customer' ,
-         isRequired: true,
-        },
+    Budget: {
+      type: Text,
+      isRequired: false,
+    },
+    Occupation: {
+      type: Text,
+      isRequired: false,
+    },
   },
-  labelResolver: item => item.Name,
+  labelResolver: item => item.type,
 };
