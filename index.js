@@ -57,7 +57,7 @@ const dealAccess ={ access: {
 
 
 keystone.createList('Lead', LeadsSchema);
-console.log({DealsSchema,...dealAccess})
+
 keystone.createList('Deal', { ...DealsSchema, ...dealAccess});
 
 keystone.createList('User', {
