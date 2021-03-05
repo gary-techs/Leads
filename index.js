@@ -1,5 +1,5 @@
 const expressSession = require('express-session');
-const MongoStore = require('connect-mongo')(expressSession);
+const MongoStore = require('connect-mongo').default;
 
 const { Keystone } = require('@keystonejs/keystone');
 const { PasswordAuthStrategy } = require('@keystonejs/auth-password');
@@ -13,14 +13,15 @@ const PROJECT_NAME = 'Lead management';
 const adapterConfig = { mongoUri: 'mongodb://localhost/lms' };
 
 
+
 const keystone = new Keystone({
   adapter: new Adapter(adapterConfig),
   onConnect: process.env.CREATE_TABLES !== 'true' && initialiseData,
   cookieSecret:'wewew3333',
-  session:{store: new MongoStore({ mongoUrl: 'mongodb://localhost/lms' }),
+  sessionStore: new MongoStore({ mongoUrl: 'mongodb://localhost/lms' }),
   secret:'dfdfdfdd12e'  
 },
-});
+);
 const LeadsSchema = require('./leads/leads.js');
 const DealsSchema = require('./leads/deals.js');
 // Access control functions
