@@ -16,13 +16,13 @@ module.exports = async keystone => {
   });
 
   if (count === 0) {
-    const password = 'Surender';
-    const email = 'user@accardian.com';
+    const password = 'montyPython12';
+    const email = 'Ravi@gmail.com';
 
     const { errors } = await keystone.executeGraphQL({
       context: keystone.createContext().sudo(),
       query: `mutation initialUser($password: String, $email: String) {
-            createUser(data: {name: "Admin", email: $email, isAdmin: true, password: $password}) {
+            createUser(data: {name: "Ravi", email: $email, isAdmin: true, isOwner:true, password: $password}) {
               id
             }
           }`,

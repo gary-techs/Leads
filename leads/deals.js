@@ -1,91 +1,106 @@
 
-const { Text, Select } = require('@keystonejs/fields');
+const { Text, Select, File } = require('@keystonejs/fields');
 
 const { LocalFileAdapter } = require('@keystonejs/file-adapters');
+
 const fileAdapter = new LocalFileAdapter({
-    /*...config */
+    src: 'public/uploads',
+    path: '/public/uploads'
 });
 
 
 module.exports = {
     fields: {
-        "Seller Name": {
+        SName: {
+            label: "Seller Name",
             type: Text,
             isRequired: true,
         },
-        "Seller Contact": {
+
+        "SContact": {
+            label: "Seller Contact",
             type: Text,
             isRequired: true,
         },
-        "Seller Additional Info": {
+        "SAInfo": {
+            label: "Seller Additional Info",
             type: Text,
             isRequired: false,
         },
-
-        "Buyer Name": {
+        BName: {
+            label: "Buyer Name",
             type: Text,
             isRequired: true,
         },
-        "Buyer Contact": {
+        "BContact": {
+            label: "Buyer Contact",
             type: Text,
             isRequired: true,
         },
-        "Buyer Additional Info": {
-            type: Text,
+        "BAInfo": {
+            label: "Buyer Additional Info", type: Text,
             isRequired: false,
         },
-
-        "Project Name": {
-            type: Text,
+        "Project_Name": {
+            label: "", type: Text,
             isRequired: true,
         },
-        "Unit Detail": {
-            type: Text,
+        "Unit_Detail": {
+            label: "", type: Text,
             isRequired: true,
         },
-        "Deal Start Date": {
-            type: Text,
+        "Deal_Start_Date": {
+            label: "Deal Start Date", type: Text,
             isRequired: true,
         },
-        "Deal Close Date": {
-            type: Text,
+        "Deal_Close_Date": {
+            label: "Deal Close Date", type: Text,
             isRequired: true,
         },
-        "Deal Type": {
+        "Deal_Type": {
+            label: "Deal Type",
             type: Select,
             options: 'Affordable, Commercial, Residential, Land',
             isRequired: true,
         },
-        "Deal Total Amount": {
+        "Deal_Total_Amount": {
+            label: "Deal Total Amount",
             type: Text,
             isRequired: true,
         },
-        "Deal Total Profit": {
+        "Deal_Total_Profit": {
+            label: "Deal Total Profit",
             type: Text,
             isRequired: true,
         },
-        "Deal Net Profit": {
+        "Deal_Net_Profit": {
+            label: "Deal Net Profit",
             type: Text,
             isRequired: true,
         },
-        "Commision Amount": {
+        "Commision_Amount": {
+            label: "Commision Amount",
             type: Text,
             isRequired: true,
         },
-        "Commision Status": {
+        "Commision_Status": {
+            label: "Commision Status",
             type: Select,
-            options: 'Pending, Partially Paid, Fully Paid',
+            options: [{ value: "Pending", label: "Pending" }, { value: "Partially", label: "Partially Paid" }, { value: "Fully", label: "Fully Paid" }],
             isRequired: true,
         },
-        "Commision Paid Date": {
+        "Commision_Paid_Date": {
+            label: "Commision Paid Date",
             type: Text,
             isRequired: false,
         },
-        "Sales Person": {
+        "Sales_Person": {
+            label: "Sales Person",
             type: Text,
             isRequired: true,
         },
-        "Sales Person Contact": {
+        "Sales_Person_Contact": {
+            label: "Sales Person Contact",
             type: Text,
             isRequired: true,
         },
@@ -113,5 +128,6 @@ module.exports = {
             adapter: fileAdapter,
             isRequired: false,
         },
-    }
+    },
+    labelResolver: item => item.BName,
 };

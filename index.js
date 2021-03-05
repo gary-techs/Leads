@@ -1,13 +1,11 @@
-const session = require('express-session');
-const MongoStore = require('connect-mongo').default;
+const expressSession = require('express-session');
+const MongoStore = require('connect-mongo')(expressSession);
 
 const { Keystone } = require('@keystonejs/keystone');
 const { PasswordAuthStrategy } = require('@keystonejs/auth-password');
 const { Text, Checkbox, Password } = require('@keystonejs/fields');
 const { GraphQLApp } = require('@keystonejs/app-graphql');
 const { AdminUIApp } = require('@keystonejs/app-admin-ui');
-const LeadsSchema = require('./leads/leads.js');
-const DealsSchema = require('./leads/deals.js');
 const initialiseData = require('./initial-data');
 const { MongooseAdapter: Adapter } = require('@keystonejs/adapter-mongoose');
 
@@ -19,13 +17,15 @@ const keystone = new Keystone({
   adapter: new Adapter(adapterConfig),
   onConnect: process.env.CREATE_TABLES !== 'true' && initialiseData,
   cookieSecret:'wewew3333',
-  session:{store: new MongoStore({ mongoUrl: 'mongodb://localhost/lms-session' }),
+  session:{store: new MongoStore({ mongoUrl: 'mongodb://localhost/lms' }),
   secret:'dfdfdfdd12e'  
 },
 });
-
+const LeadsSchema = require('./leads/leads.js');
+const DealsSchema = require('./leads/deals.js');
 // Access control functions
 const userIsAdmin = ({ authentication: { item: user } }) => Boolean(user && user.isAdmin);
+
 const userOwnsItem = ({ authentication: { item: user } }) => {
   if (!user) {
     return false;
@@ -36,9 +36,6 @@ const userOwnsItem = ({ authentication: { item: user } }) => {
   return { id: user.id };
 };
 
-keystone.createList('Lead', LeadsSchema);
-keystone.createList('Deals', DealsSchema);
-
 
 const userIsAdminOrOwner = auth => {
   const isAdmin = access.userIsAdmin(auth);
@@ -46,7 +43,21 @@ const userIsAdminOrOwner = auth => {
   return isAdmin ? isAdmin : isOwner;
 };
 
-const access = { userIsAdmin, userOwnsItem, userIsAdminOrOwner };
+
+const access = { userIsAdmin, userOwnsItem, userIsAdminOrOwner};
+
+const dealAccess ={ access: {
+  read: access.userIsAdmin,
+  update: access.userIsAdmin,
+  create: access.userIsAdmin,
+  delete: access.userIsAdmin,
+  auth: true,
+}}
+
+
+keystone.createList('Lead', LeadsSchema);
+console.log({DealsSchema,...dealAccess})
+keystone.createList('Deal', { ...DealsSchema, ...dealAccess});
 
 keystone.createList('User', {
   fields: {
@@ -69,13 +80,14 @@ keystone.createList('User', {
   },
   // List-level access controls
   access: {
-    read: access.userIsAdminOrOwner,
-    update: access.userIsAdminOrOwner,
+    //read: access.userIsAdmin,
+    update: access.userIsAdmin,
     create: access.userIsAdmin,
     delete: access.userIsAdmin,
     auth: true,
   },
 });
+
 
 const authStrategy = keystone.createAuthStrategy({
   type: PasswordAuthStrategy,

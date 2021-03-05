@@ -11,6 +11,7 @@
     "node": ">=10.0.0"
   },
   "scripts": {
+    "dev1": "cross-env NODE_ENV=development DISABLE_LOGGING=false nodemon --exec keystone dev",
     "dev": "cross-env NODE_ENV=development DISABLE_LOGGING=true keystone dev",
     "build": "cross-env NODE_ENV=production keystone build",
     "start": "cross-env NODE_ENV=production keystone start",
@@ -25,6 +26,7 @@
     "@keystonejs/fields-wysiwyg-tinymce": "^5.4.0",
     "@keystonejs/file-adapters": "^7.1.0",
     "@keystonejs/keystone": "^19.2.0",
+    "@keystonejs/list-plugins": "^8.1.0",
     "connect-mongo": "^4.2.0",
     "cross-env": "^7.0.3",
     "express-session": "^1.17.1"

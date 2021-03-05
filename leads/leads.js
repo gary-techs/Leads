@@ -1,6 +1,6 @@
 
-const { Text, Select } = require('@keystonejs/fields');
-
+const { Text, Select, Relationship, DateTime } = require('@keystonejs/fields');
+const { byTracking, atTracking } = require('@keystonejs/list-plugins');
 const { Wysiwyg } = require('@keystonejs/fields-wysiwyg-tinymce');
 
 module.exports = {
@@ -24,7 +24,6 @@ module.exports = {
       options: 'New, Oppurtunity',
       isRequired: true,
     },
-
     Address: {
       type: Text,
       isRequired: false,
@@ -50,6 +49,11 @@ module.exports = {
       type: Text,
       isRequired: false,
     },
+
   },
   labelResolver: item => item.type,
+  plugins: [
+    byTracking(),
+    atTracking(),
+  ],
 };
