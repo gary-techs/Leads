@@ -11,10 +11,10 @@
     "node": ">=10.0.0"
   },
   "scripts": {
-    "dev1": "cross-env NODE_ENV=development DISABLE_LOGGING=false nodemon --exec keystone dev",
+    "dev1": "cross-env NODE_ENV=development PORT=443 DISABLE_LOGGING=false nodemon --exec keystone dev",
     "dev": "cross-env NODE_ENV=development DISABLE_LOGGING=true keystone dev",
     "build": "cross-env NODE_ENV=production keystone build",
-    "start": "cross-env NODE_ENV=production keystone start",
+    "start": "cross-env NODE_ENV=production  keystone start",
     "create-tables": "cross-env CREATE_TABLES=true keystone create-tables"
   },
   "dependencies": {
